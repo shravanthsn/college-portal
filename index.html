@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristu Jayanti University - Student Portal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1e293b;
+            background-image: radial-gradient(#334155 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .portal-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 25px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .university-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .university-subtext {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .page-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+
+        .input-box, .select-box {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: #f1f5f9;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #1e293b;
+            outline: none;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .input-box:focus, .select-box:focus {
+            border-color: #2563eb;
+            background-color: #ffffff;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-top: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        .nav-link-container {
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        .nav-link {
+            color: #2563eb;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Dashboard View Styling */
+        .dashboard-card {
+            max-width: 750px;
+        }
+
+        .student-header-info {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .info-item {
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        .info-item strong {
+            color: #0f172a;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .stats-table th, .stats-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .stats-table th {
+            background-color: #eff6ff;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-good { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef9c3; color: #854d0e; }
+
+        .btn-logout {
+            background-color: #ef4444;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc2626;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            .portal-card {
+                padding: 24px 18px;
+            }
+            .university-name {
+                font-size: 1rem;
+            }
+            .page-title {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN & REGISTER CARD -->
+    <div id="auth-card" class="portal-card">
+        <div class="logo-container">
+            <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Kristu_Jayanti_College_Logo.png" alt="Kristu Jayanti Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2997/2997295.png'">
+            <div class="university-name">KRISTU JAYANTHI UNIVERSITY</div>
+            <div class="university-subtext">Autonomous • Bengaluru</div>
+        </div>
+
+        <div id="portal-heading" class="page-title">STUDENT PORTAL</div>
+
+        <!-- LOGIN FORM -->
+        <form id="login-form">
+            <div class="input-group">
+                <label for="login-email">Edu Email ID</label>
+                <input type="email" id="login-email" class="input-box" placeholder="example@kristujayanti.com" required>
+            </div>
+            <div class="input-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" class="input-box" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-submit">Log In</button>
+            <div class="nav-link-container">
+                <a href="#" class="nav-link" id="goto-register">NEW STUDENT? REGISTER HERE</a>
+            </div>
+        </form>
+
+        <!-- REGISTRATION FORM -->
+        <form id="register-form" class="hidden">
+            <div class="input-group">
+                <label for="reg-name">Student Full Name</label>
+                <input type="text" id="reg-name" class="input-box" placeholder="Enter Full Name" required>
+            </div>
+            <div class="input-group">
+                <label for="reg-phone">Student Phone Number</label>
+                <input type="tel" id="reg-phone" class="input-box" placeholder="10-digit Phone Number" required>
+            </div>
+            <div class="input-group">
+                <label for="reg-email">Edu Email ID</label>
+                <input type="email" id="reg-email" class="input-box" placeholder="example@kristujayanti.com" required>
+            </div>
+            <div class="input-group">
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" class="input-box" placeholder="••••••••" required>
+            </div>
+
+            <div class="section-label">Parent / Guardian Information</div>
+
+            <div class="input-group">
+                <label for="reg-parent-name">Parent / Guardian Name</label>
+                <input type="text" id="reg-parent-name" class="input-box" placeholder="Parent Name" required>
+            </div>
+            <div class="input-group">
+                <label for="reg-parent-phone">Parent Phone Number</label>
+                <input type="tel" id="reg-parent-phone" class="input-box" placeholder="10-digit Phone Number" required>
+            </div>
+
+            <div class="section-label">Academic Program</div>
+
+            <div class="input-group">
+                <label for="reg-course">Select Course</label>
+                <select id="reg-course" class="select-box" required>
+                    <option value="">-- Choose Course --</option>
+                    <option value="BSc CSEL">BSc CSEL (Computer Science and Electronics)</option>
+                    <option value="BSc CSPH">BSc CSPH (Computer Science and Physics)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Register Student</button>
+            <div class="nav-link-container">
+                <a href="#" class="nav-link" id="goto-login">ALREADY REGISTERED? LOGIN HERE</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- DASHBOARD CARD -->
+    <div id="dashboard-card" class="portal-card dashboard-card hidden">
+        <div class="logo-container">
+            <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Kristu_Jayanti_College_Logo.png" alt="Kristu Jayanti Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2997/2997295.png'">
+            <div class="university-name">KRISTU JAYANTHI UNIVERSITY</div>
+            <div class="page-title" style="margin-top: 5px;">STUDENT DASHBOARD</div>
+        </div>
+
+        <div class="student-header-info">
+            <div class="info-item"><strong>Student Name:</strong> <span id="dash-name">-</span></div>
+            <div class="info-item"><strong>Course:</strong> <span id="dash-course">-</span></div>
+            <div class="info-item"><strong>Email:</strong> <span id="dash-email">-</span></div>
+            <div class="info-item"><strong>Phone:</strong> <span id="dash-phone">-</span></div>
+            <div class="info-item"><strong>Guardian:</strong> <span id="dash-parent-name">-</span></div>
+            <div class="info-item"><strong>Guardian Contact:</strong> <span id="dash-parent-phone">-</span></div>
+        </div>
+
+        <h3 style="align-self: flex-start; color: #1e3a8a; margin-bottom: 10px;">Academic Performance & Attendance</h3>
+
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Attendance</th>
+                    <th>Marks (out of 100)</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-marks-body">
+                <!-- Dynamically generated rows -->
+            </tbody>
+        </table>
+
+        <button id="logout-btn" class="btn-submit btn-logout">Log Out</button>
+    </div>
+
+    <!-- FRONT-END JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const authCard = document.getElementById('auth-card');
+            const dashboardCard = document.getElementById('dashboard-card');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const heading = document.getElementById('portal-heading');
+
+            const gotoRegister = document.getElementById('goto-register');
+            const gotoLogin = document.getElementById('goto-login');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            gotoRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                heading.textContent = 'STUDENT REGISTRATION';
+            });
+
+            gotoLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                heading.textContent = 'STUDENT PORTAL';
+            });
+
+            // 1. REGISTRATION SUBMISSION
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const studentName = document.getElementById('reg-name').value.trim();
+                const studentPhone = document.getElementById('reg-phone').value.trim();
+                const email = document.getElementById('reg-email').value.trim();
+                const password = document.getElementById('reg-password').value.trim();
+                const parentName = document.getElementById('reg-parent-name').value.trim();
+                const parentPhone = document.getElementById('reg-parent-phone').value.trim();
+                const course = document.getElementById('reg-course').value;
+
+                try {
+                    const response = await fetch('http://localhost:3000/api/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ studentName, studentPhone, email, password, parentName, parentPhone, course })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        alert('Registration successful! Redirecting to login page...');
+                        registerForm.reset();
+                        registerForm.classList.add('hidden');
+                        loginForm.classList.remove('hidden');
+                        heading.textContent = 'STUDENT PORTAL';
+                    } else {
+                        alert(data.message || 'Registration failed.');
+                    }
+                } catch (error) {
+                    alert('Server error or database unreachable. Ensure server.js is running.');
+                }
+            });
+
+            // 2. LOGIN SUBMISSION
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+
+                try {
+                    const response = await fetch('http://localhost:3000/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.status === 404) {
+                        alert('Email ID not found in database! Please register first.');
+                    } else if (response.status === 401) {
+                        alert('Incorrect password! Please try again.');
+                    } else if (response.ok && data.success) {
+                        alert('Login successful! Welcome to the portal.');
+                        showDashboard(data.user);
+                    } else {
+                        alert(data.message || 'Login failed.');
+                    }
+                } catch (error) {
+                    alert('Server error or database unreachable. Ensure server.js is running.');
+                }
+            });
+
+            // 3. RENDER DASHBOARD
+            function showDashboard(user) {
+                authCard.classList.add('hidden');
+                dashboardCard.classList.remove('hidden');
+
+                document.getElementById('dash-name').textContent = user.studentName;
+                document.getElementById('dash-course').textContent = user.course;
+                document.getElementById('dash-email').textContent = user.email;
+                document.getElementById('dash-phone').textContent = user.studentPhone;
+                document.getElementById('dash-parent-name').textContent = user.parentName;
+                document.getElementById('dash-parent-phone').textContent = user.parentPhone;
+
+                let subjects = [];
+                if (user.course === 'BSc CSEL') {
+                    subjects = ['Computer Science', 'Electronics', 'Mathematics', 'English', 'Environmental Science'];
+                } else {
+                    subjects = ['Computer Science', 'Physics', 'Mathematics', 'English', 'Environmental Science'];
+                }
+
+                const tableBody = document.getElementById('attendance-marks-body');
+                tableBody.innerHTML = '';
+
+                subjects.forEach(subject => {
+                    const attendanceVal = Math.floor(Math.random() * (98 - 75 + 1)) + 75;
+                    const marksVal = Math.floor(Math.random() * (95 - 65 + 1)) + 65;
+                    const badgeClass = attendanceVal >= 85 ? 'badge-good' : 'badge-warning';
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><strong>${subject}</strong></td>
+                        <td><span class="badge ${badgeClass}">${attendanceVal}%</span></td>
+                        <td>${marksVal} / 100</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // 4. LOGOUT
+            logoutBtn.addEventListener('click', () => {
+                dashboardCard.classList.add('hidden');
+                authCard.classList.remove('hidden');
+                loginForm.reset();
+                heading.textContent = 'STUDENT PORTAL';
+            });
+        });
+    </script>
+</body>
+</html>
